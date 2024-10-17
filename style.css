@@ -40,6 +40,14 @@ html, body {
     padding: 0 2vw;
 }
 
+@media (max-width:600px) {
+    #page1 {
+        min-height: 100vh;
+        width: 100vw;
+        padding: 0 0vw;
+    }
+}
+
 nav {
     padding: 2vw 0vw;
     width: 100%;
@@ -129,10 +137,23 @@ nav h3 {
     width: 100%;
 }
 
+@media (max-width:600px) {
+    #page1 video {
+        position: relative;
+        border-radius: 15px;
+        margin-top: 4vw;
+        height: 70vh;
+        object-fit: cover;
+        object-position: center;
+        width: 92%;
+        margin-left: 4%;
+    }
+}
+
 #page2 {
     min-height: 100vh;
     width: 100%;
-    background-color: #0eb18b;
+    background-color: rgb(2, 252, 6);
     padding: 8vw 0;
     position: relative;
 }
@@ -157,7 +178,6 @@ nav h3 {
 
 #moving-text h1 {
     font-size: 9vw;
-    /* background-color: lightblue; */
     display: inline-block;
 }
 
@@ -185,7 +205,6 @@ nav h3 {
 #page2-bottom {
     height: 80vh;
     width: 100%;
-    /* background-color: aliceblue; */
     padding: 4.5vw;
     display: flex;
     align-items: center;
@@ -202,7 +221,6 @@ nav h3 {
 
 #bottom-part2 {
     width: 20%;
-    /* background-color: aqua; */
 }
 
 #bottom-part2 img {
@@ -225,7 +243,7 @@ nav h3 {
 #page3 {
     min-height: 100vh;
     width: 100%;
-    background-color: #6cc470;
+    background-color: #51ECC4;
     padding: 4vw 0;
 }
 
@@ -261,6 +279,14 @@ nav h3 {
     top: 0;
 }
 
+#page4 {
+    height: 70vh;
+    width: 100%;
+    background-color: #EFEAE3;
+    padding: 10vw 2vw;
+    overflow: hidden;
+}
+
 .swiper {
     width: 100%;
     height: 100%;
@@ -270,12 +296,63 @@ nav h3 {
     width: 30%;
     border-left: 1px solid #aeadad;
     padding: 0 2vw;
+    transition: transform 0.5s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.swiper-slide a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.swiper-slide a::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 10px;
+}
+
+.swiper-slide:hover a::after {
+    opacity: 1;
+}
+
+.swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.swiper-slide:hover img {
+    transform: scale(1.1);
+}
+
+.swiper-wrapper {
+    transition-timing-function: linear !important;
+    display: flex; 
+    flex-wrap: nowrap; 
+}
+
+#page4 h1 {
+    font-size: 3vw;
+    text-align: center;
+    margin-bottom: 2vw;
 }
 
 #page5 {
     height: 100vh;
     width: 100%;
-    /* background-color: #EFEAE3; */
 }
 
 #footer {
@@ -342,28 +419,45 @@ nav h3 {
     }
 
     nav {
-        padding: 8vw 5vw;
-        background-color: #EFEAE3;
-        /* padding: 0 5vw; */
+        padding: 4vw 5vw;
+        justify-content: space-between;
+        align-items: center;
     }
 
     nav img {
-        transition: all ease 0.2s;
-        height: 9vh;
+        height: 30px; /* Adjust as needed */
     }
 
     #nav-part2 {
         display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: #EFEAE3;
+        flex-direction: column;
+        padding: 20px 0;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    }
+
+    #nav-part2.active {
+        display: flex;
+    }
+
+    #nav-part2 h4 {
+        margin: 10px 0;
+        width: 100%;
+        text-align: center;
     }
 
     nav h3 {
+        display: none;
+    }
+
+    #hamburger {
         display: block;
-        padding: 3vw 5vw;
-        border: 1px solid #ababab;
-        border-radius: 50px;
-        font-size: 4vw;
-        font-weight: 200;
-        padding-left: 10vw;
+        font-size: 24px;
+        cursor: pointer;
     }
 
     #center {
@@ -450,31 +544,21 @@ nav h3 {
     }
 
     #page2-bottom {
-        height: 90vh;
-        width: 100%;
+        height: auto;
         padding: 10vw 4vw;
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        position: relative;
         flex-direction: column;
-        z-index: 9;
+        align-items: flex-start;
     }
-    
 
-    #page2-bottom h1 {
-        font-size: 8.2vw;
+    #page2-bottom h2 {
+        font-size: 5.5vw;
         width: 100%;
-        line-height: 9vw;
-    }
-
-    #page2-bottom div p{
-        color: red;
-        font-size: 1rem;
+        line-height: 6vw;
+        margin-bottom: 5vw;
     }
 
     #bottom-part2 {
-        width: 70%;
+        width: 100%;
     }
 
     #bottom-part2 img {
@@ -483,13 +567,13 @@ nav h3 {
     }
 
     #bottom-part2 p {
-        font-weight: 200;
-        margin-top: 2vw;
-        font-size: 3vw;
+        margin-top: 4vw;
+        font-size: 3.5vw;
+        line-height: 5vw;
     }
 }
 
-#loader{
+#loader {
     height: 100%;
     width: 100%;
     background-color: #000;
@@ -502,44 +586,70 @@ nav h3 {
     justify-content: center;
 }
 
-#loader h1{
-    font-size: 4vw;
-    color: transparent;
-    background: linear-gradient(to right,rgb(2, 252, 6),rgb(170, 7, 234));
-    background-clip: text;
-    -webkit-background-clip: text;
-    position: absolute;
-    opacity: 0;
-    animation-name: load;
-    animation-duration: 1s;
-    animation-delay: 1s;
-    animation-timing-function: linear;
-}
-#loader h1:nth-child(2){
-    animation-delay: 2s;
-}
-#loader h1:nth-child(3){
-    animation-delay: 3s;
+#loader .loading-bar {
+    width: 200px;
+    height: 4px;
+    background-color: #333;
+    border-radius: 2px;
+    overflow: hidden;
 }
 
-@keyframes load {
-    0%{
-        opacity: 0;
-    }
-    10%{
-        opacity: 1;
-    }
-    90%{
-        opacity: 1;
-    }
-    100%{
-        opacity: 0;
-    }
+#loader .loading-bar-fill {
+    width: 0;
+    height: 100%;
+    background: linear-gradient(to right, rgb(2, 252, 6), rgb(170, 7, 234));
+    animation: fillBar 2.5s linear forwards; /*2.5s seems alrright right??*/
+}
+
+@keyframes fillBar {
+    0% { width: 0; }
+    100% { width: 100%; }
 }
 
 @media (max-width:600px) {
-    #loader h1{
-        font-size: 9vw;
-      
+    #loader .loading-bar {
+        width: 150px;
+    }
+}
+
+#hamburger {
+    display: none;
+}
+@media (max-width: 600px) {
+    #hamburger {
+        display: block;
+        font-size: 24px;
+        cursor: pointer;
+    }
+}
+
+.swiper-wrapper {
+    transition-timing-function: linear !important;
+}
+
+.swiper-slide a {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+@media (max-width: 600px) {
+    #page4 {
+        height: auto;
+        padding: 15vw 4vw;
+    }
+
+    #page4 h1 {
+        font-size: 6vw;
+        margin-bottom: 5vw;
+    }
+
+    .swiper-slide {
+        width: 60%;
+        padding: 0 1vw;
+    }
+
+    .swiper {
+        height: 50vh;
     }
 }
