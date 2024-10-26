@@ -69,39 +69,47 @@ nav {
     border: 1px solid #0000003c;
     border-radius: 50px;
     font-weight: 500;
-    color: #000000bb;
     transition: all ease 0.4s;
+    font-family: 'Calibri', 'Trebuchet MS', sans-serif;
     position: relative;
     font-size: 18px;
     overflow: hidden;
 }
 
-#nav-part2 h4::after {
-    content: "";
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    background-color: black;
-    left: 0;
-    bottom: -100%;
-    border-radius: 50%;
-    transition: all ease 0.4s;
-}
-
-#nav-part2 h4:hover::after {
-    bottom: 0;
-    border-radius: 0;
-}
-
-#nav-part2 h4 a {
+#nav-part2 h4 .nav-link {
+    position: relative;
     color: #000000bb;
     text-decoration: none;
-    position: relative;
-    z-index: 9;
+    display: inline-block;
+    transition: color 0.3s ease;
+    z-index: 1;
 }
 
-#nav-part2 h4:hover a {
+#nav-part2 h4::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 100%;
+    background-color: #000;
+    transition: width 0.6s ease;
+    z-index: 0;
+    border-radius: 50px;
+}
+
+#nav-part2 h4:hover::before {
+    width: 100%;
+}
+
+#nav-part2 h4:hover .nav-link {
     color: #fff;
+}
+
+/* Remove these styles as they're no longer needed */
+#nav-part2 h4::after,
+#nav-part2 h4:hover::after {
+    content: none;
 }
 
 nav h3 {
@@ -243,40 +251,127 @@ nav h3 {
 #page3 {
     min-height: 100vh;
     width: 100%;
-    background-color: #6cc470;
-    padding: 4vw 0;
+    background-color: #f0f0f0;
+    padding: 4vw 2vw;
 }
 
-.elem {
-    height: 150px;
-    width: 100%;
-    position: relative;
-
-    border-bottom: 1px solid #38383864;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    padding: 0 2vw;
-}
-
-.elem h2 {
+#page3 h1 {
     font-size: 3vw;
+    margin-bottom: 2vw;
+    text-align: center;
+}
+
+#timeline-container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
     position: relative;
-    z-index: 9;
 }
 
-.elem .overlay {
-    height: 100%;
+.timeline-column {
+    width: 48%;
+    position: relative;
+}
+
+.timeline-item {
     width: 100%;
-    background-color: orange;
-    position: absolute;
-    left: 0;
-    top: -100%;
-    transition: all ease 0.25s;
+    margin-bottom: 60px;
+    background-color: white;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    --year-color: #6cc470;  /* Default year color */
 }
 
-.elem:hover .overlay {
-    top: 0;
+.timeline-item::before {
+    content: attr(data-year);
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: var(--year-color);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+}
+
+.timeline-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.timeline-item h2 {
+    font-family: 'Merriweather-Sans', sans-serif;
+    color: #333;
+    font-size: 1.5em;
+    font-weight: 700;
+    margin-bottom: 15px;
+    letter-spacing: 0.5px;
+}
+
+.timeline-content {
+    font-size: 1.1em;
+    color: #555;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, opacity 0.5s ease;
+    opacity: 0;
+    line-height: 1.6;
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 400;
+}
+
+.timeline-item.active .timeline-content {
+    max-height: 500px;
+    opacity: 1;
+    padding-top: 15px;
+}
+
+@media (max-width: 768px) {
+    .timeline-column {
+        width: 100%;
+    }
+
+    .timeline-item {
+        margin-bottom: 40px;
+        padding: 25px;
+    }
+
+    .timeline-item h2 {
+        font-size: 1.6em;
+    }
+
+    .timeline-item::before {
+        font-size: 0.8em;
+        padding: 6px 12px;
+    }
+
+    .timeline-content {
+        font-size: 1em;
+    }
+}
+
+#info-box {
+    position: fixed;
+    max-width: 300px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    z-index: 1000;
+    transition: opacity 0.3s ease;
+}
+
+#info-box.hidden {
+    opacity: 0;
+    pointer-events: none;
 }
 
 #page4 {
@@ -742,4 +837,40 @@ nav h3 {
 .swiper-container-hover .swiper-wrapper {
     animation-play-state: paused;
 }
+
+#info-box {
+    max-width: 200px;
+    font-size: 14px;
+    line-height: 1.4;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.timeline-item.early-years::before {
+    background-color: #4a9e4f;
+}
+
+.timeline-item.mid-years::before {
+    background-color: #9e4a4a;
+}
+
+.timeline-item.recent-years::before {
+    background-color: #4a4a9e;
+}
+
+.timeline-content p {
+    color: #555;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 1.1em;
+    line-height: 1.6;
+    font-weight: 400;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+}
+
+.timeline-item.active .timeline-content p {
+    opacity: 1;
+}
+
+
+
 
