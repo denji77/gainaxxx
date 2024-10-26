@@ -4,32 +4,12 @@ const scroll = new LocomotiveScroll({
 }); //The Locomotive Scroll is soo good
 
 
-function page4Animation() {
-    var elemC = document.querySelector("#elem-container")
-    var fixed = document.querySelector("#fixed-image")
-    elemC.addEventListener("mouseenter", function () {
-        fixed.style.display = "block"
-    })
-    elemC.addEventListener("mouseleave", function () {
-        fixed.style.display = "none"
-    })
-
-    var elems = document.querySelectorAll(".elem")
-    elems.forEach(function (e) {
-        e.addEventListener("mouseenter", function () {
-            var image = e.getAttribute("data-image")
-            fixed.style.backgroundImage = `url(${image})`
-        })
-    })
-}
-
 let swiper;
 
 function initSwiper() {
     swiper = new Swiper(".mySwiper", {
         slidesPerView: "auto",
-        centeredSlides: true,
-        spaceBetween: 100,
+        spaceBetween: 20,
         loop: true,
         autoplay: {
             delay: 0,
@@ -37,22 +17,49 @@ function initSwiper() {
         },
         speed: 5000,
         breakpoints: {
-            // when window width is >= 320px
             320: {
                 slidesPerView: 1.5,
-                spaceBetween: 20
+                spaceBetween: 10
             },
-            // when window width is >= 480px
             480: {
                 slidesPerView: 2,
-                spaceBetween: 30
+                spaceBetween: 15
             },
-            // when window width is >= 640px
             640: {
                 slidesPerView: "auto",
-                spaceBetween: 100
+                spaceBetween: 20
             }
         }
+    });
+
+    const swiperContainer = document.querySelector('.swiper-container');
+    const swiperSlides = document.querySelectorAll('.swiper-slide');
+
+    //Don't Work properly i don't know why.
+    swiperContainer.addEventListener('mouseenter', () => {
+        swiper.autoplay.stop();
+        swiperContainer.classList.add('swiper-container-hover');
+    });
+
+    swiperContainer.addEventListener('mouseleave', () => {
+        swiper.autoplay.start();
+        swiperContainer.classList.remove('swiper-container-hover');
+    });
+
+    swiperSlides.forEach(slide => {
+        slide.addEventListener('mouseenter', () => {
+            slide.style.transform = 'scale(1.2)';
+            slide.style.zIndex = '2';
+            swiperSlides.forEach(s => {
+                if (s !== slide) s.style.opacity = '0.5';
+            });
+        });
+
+        slide.addEventListener('mouseleave', () => {
+            slide.style.transform = 'scale(1)';
+            slide.style.zIndex = '1';
+            swiperSlides.forEach(s => s.style.opacity = '1');
+        });
     });
 }
 
@@ -62,48 +69,21 @@ function swiperAnimation() {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                if (!swiper) {
-                    initSwiper();
-                } else {
-                    swiper.autoplay.start();
-                }
-            } else {
-                if (swiper) {
-                    swiper.autoplay.stop();
-                }
+                if (!swiper) initSwiper();
+                else swiper.autoplay.start();
+            } else if (swiper) {
+                swiper.autoplay.stop();
             }
         });
-    }, { threshold: 0.1 }); // Trigger when 10% of the element is visible
+    }, { threshold: 0.1 });
 
     observer.observe(page4);
 }
 
 function loaderAnimation() {
     var loader = document.querySelector("#loader")
-    setTimeout(function () {
-        loader.style.top = "-100%"
-    }, 2500) //2.5 seconds seems alright
+    setTimeout(() => loader.style.top = "-100%", 2500);
 }
-
-swiperAnimation()
-page4Animation()
-loaderAnimation()
-
-
-
-const gyanaxLogo = document.querySelector('nav img');
-const gyanaxElements = document.querySelectorAll('div[id^="page2-bottom"] h2, div[id^="bottom-part2"] p');
-//Only Works for first element dunno whyy
-gyanaxElements.forEach(element => {
-    const gyanaxText = element.textContent.match(/Gainax/,);
-    if (gyanaxText) {
-      const textNode = element.firstChild;
-      const newTextNode = textNode.cloneNode(true); 
-      newTextNode.textContent = newTextNode.textContent.replace(/Gyanax/, '');
-      element.replaceChild(gyanaxLogo.cloneNode(true), textNode);
-      element.appendChild(newTextNode);
-    }
-  });
 
 function setupMobileMenu() {
     const hamburger = document.querySelector('#hamburger');
@@ -114,5 +94,9 @@ function setupMobileMenu() {
     });
 }
 
-// This function gets called when the DOM loaded
-document.addEventListener('DOMContentLoaded', setupMobileMenu);
+document.addEventListener('DOMContentLoaded', () => {
+    swiperAnimation();
+    setupMobileMenu();
+    loaderAnimation();
+    initSwiper();
+});
