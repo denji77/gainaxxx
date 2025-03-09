@@ -234,3 +234,16 @@ document.addEventListener('DOMContentLoaded', () => {
     initSwiper();
     setupTimelineItems();
 });
+
+const newsrepo = document.querySelector('.newsrepo');
+// console.log(newsrepo.textContent)
+newsrepo.addEventListener('click',function(){
+    document.querySelector('.modal').classList.remove('hidden');
+    document.querySelector('.overlay').classList.remove('hidden');
+})
+
+const closem = document.querySelector('.close-modal');
+closem.addEventListener('click', function(){
+    document.querySelector('.modal').classList.add('hidden');
+    document.querySelector('.overlay').classList.add('hidden');
+})
